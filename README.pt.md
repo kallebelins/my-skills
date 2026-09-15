@@ -21,10 +21,13 @@ my-skills/
 │   ├── spec-kit/
 │   │   ├── SKILL.md
 │   │   └── templates/
+│   │       ├── architecture.template.md
 │   │       ├── backlog.template.md
 │   │       ├── plan.template.md
 │   │       ├── spec.template.md
 │   │       └── tasks.template.md
+│   ├── spec-kit-architecture/
+│   │   └── SKILL.md
 │   ├── spec-kit-backlog/
 │   │   └── SKILL.md
 │   ├── spec-kit-plan/
@@ -55,6 +58,7 @@ Use um nome curto, descritivo e em minúsculas, preferencialmente com hífen qua
 Exemplos:
 
 - spec-kit
+- spec-kit-architecture
 - spec-kit-plan
 - azure-deploy
 - python-appservice-deploy
@@ -104,6 +108,7 @@ Ao criar ou ajustar uma skill, siga estas regras:
 - Tome cuidado com nomenclatura consistente.
 - Use exemplos práticos no `argument-hint` e no texto de uso.
 - Quando a skill orquestra outras skills, deixe explícita a ordem de execução.
+- No fluxo spec-kit, execute `spec-kit-architecture` primeiro para criar `docs/architecture.md` quando o projeto ainda não tiver referência arquitetural — depois use `spec-kit` para planejar features.
 - Se houver arquivos gerados, diga exatamente qual pasta ou padrão de saída deve ser utilizado.
 - Mantenha a documentação alinhada com o comportamento efetivo da skill.
 

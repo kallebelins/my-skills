@@ -50,7 +50,9 @@ After these 3 files exist, a 4th sub-skill registers the feature at project leve
 
 1. Check whether `docs/architecture.md` exists at the repo root.
 2. If it exists: read it and use it as the single source of truth for architecture/implementation conventions in Steps 4-5 below.
-3. If it does **not** exist: ask the user which architecture/pattern to follow for this feature (e.g. point to an existing `docs/{stack}/` guide such as `docs/dotnet/`, `docs/angular/`, `docs/quarkus/`, or describe the pattern directly). Do not guess or default to a specific stack.
+3. If it does **not** exist:
+   a. Suggest running [`spec-kit-architecture`](../spec-kit-architecture/SKILL.md) to generate `docs/architecture.md` (brownfield discovery or greenfield definition) before planning features — this is the recommended path for a durable architecture reference with governance principles and development guidelines.
+   b. If the user declines or needs a one-off spec now, fall back to asking which architecture/pattern to follow for this feature (e.g. point to an existing `docs/{stack}/` guide such as `docs/dotnet/`, `docs/angular/`, `docs/quarkus/`, or describe the pattern directly). Do not guess or default to a specific stack.
 4. Record the resolved reference (file path or the user's description) — it will be quoted in `tasks.md` by `spec-kit-tasks`.
 
 ### Step 3 — Gather Business Context
