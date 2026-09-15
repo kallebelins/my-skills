@@ -9,40 +9,40 @@ generated_by: spec-kit
 # Tasks — {{Feature Name}}
 
 <!--
-Formato obrigatório de tarefa (uma ação por tarefa):
+Mandatory task format (one action per task):
 
-- [ ] X.X - Nome da tarefa
-Descrição: {{o que fazer}}
-Arquitetura/Implementação: {{camada/padrão/convenção, com base na referência de arquitetura resolvida (docs/architecture.md ou padrão combinado com o usuário)}}
-Entrada: {{referência a spec.md#..., se houver}}
-Saída: {{artefato/arquivo a criar ou modificar}}
-Cenários de teste: {{se houver}}
-Critérios de aceitação: {{mensuráveis, rastreáveis a spec.md}}
+- [ ] X.X - Task name
+Description: {{what to do}}
+Architecture/Implementation: {{layer/pattern/convention, based on the resolved architecture reference (docs/architecture.md or pattern agreed with the user)}}
+Input: {{reference to spec.md#..., if any}}
+Output: {{artifact/file to create or modify}}
+Test scenarios: {{if any}}
+Acceptance criteria: {{measurable, traceable to spec.md}}
 
-X = número da Fase (mesma ordem de plan.md), X.X = sequência dentro da fase.
+X = Phase number (same order as plan.md), X.X = sequence within the phase.
 
-Protocolo de execução (spec-kit-tasks/SKILL.md): ao concluir uma tarefa, marque "- [x]", adicione
-uma linha "Comentário:" com o que foi feito e, se houver pendência, crie sub-tarefa(s)
-"- [ ] X.X.N - ..." aninhada(s) sob a tarefa-mãe. Quando todas as tarefas de uma fase estiverem
-"[x]", marque também o checkbox da fase em plan.md.
+Execution protocol (spec-kit-tasks/SKILL.md): when completing a task, mark "- [x]", add
+a "Comment:" line with what was done and, if there is pending work, create sub-task(s)
+"- [ ] X.X.N - ..." nested under the parent task. When all tasks in a phase are
+"[x]", also check off the phase checkbox in plan.md.
 -->
 
-## Fase 1 — {{nome da fase, igual ao plan.md}}
+## Phase 1 — {{phase name, same as plan.md}}
 
-- [ ] 1.1 - {{nome da tarefa}}
-Descrição: {{...}}
-Arquitetura/Implementação: {{...}}
-Entrada: {{...}}
-Saída: {{...}}
-Cenários de teste: {{...}}
-Critérios de aceitação: {{...}}
+- [ ] 1.1 - {{task name}}
+Description: {{...}}
+Architecture/Implementation: {{...}}
+Input: {{...}}
+Output: {{...}}
+Test scenarios: {{...}}
+Acceptance criteria: {{...}}
 
-## Fase 2 — {{nome da fase, igual ao plan.md}}
+## Phase 2 — {{phase name, same as plan.md}}
 
-- [ ] 2.1 - {{nome da tarefa}}
-Descrição: {{...}}
-Arquitetura/Implementação: {{...}}
-Entrada: {{...}}
-Saída: {{...}}
-Cenários de teste: {{...}}
-Critérios de aceitação: {{...}}
+- [ ] 2.1 - {{task name}}
+Description: {{...}}
+Architecture/Implementation: {{...}}
+Input: {{...}}
+Output: {{...}}
+Test scenarios: {{...}}
+Acceptance criteria: {{...}}

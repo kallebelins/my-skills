@@ -1,17 +1,17 @@
 ---
 doc: backlog
-project: {{nome do projeto}}
+project: {{project name}}
 generated_by: spec-kit-backlog
 last_updated: {{YYYY-MM-DD}}
 ---
 
-# Backlog — {{Nome do Projeto}}
+# Backlog — {{Project Name}}
 
-<!-- Lista macro de funcionalidades do projeto. Cada item usa [ ]/[x] para indicar se já foi executado/entregue. Não é um substituto de spec.md/plan.md/tasks.md — apenas referencia. -->
+<!-- Macro list of project features. Each item uses [ ]/[x] to indicate whether it has been executed/delivered. Not a substitute for spec.md/plan.md/tasks.md — references only. -->
 
-## Funcionalidades
+## Features
 
-- [ ] {{Nome da funcionalidade}}
-  - Origem: {{spec-kit | discovery | brainstorming}}
-  - Referência: {{docs/specs/feature-NNN/spec.md | caminho representativo no código | (nenhuma)}}
-  - Resumo: {{uma linha descrevendo a funcionalidade}}
+- [ ] {{Feature name}}
+  - Source: {{spec-kit | discovery | brainstorming}}
+  - Reference: {{docs/specs/feature-NNN/spec.md | representative code path | (none)}}
+  - Summary: {{one line describing the feature}}

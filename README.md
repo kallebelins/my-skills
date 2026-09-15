@@ -1,19 +1,22 @@
 # My Skills
 
-Repositório para compartilhar skills reutilizáveis para agentes e assistentes de desenvolvimento. O objetivo é centralizar padrões, documentação e convenções para que novas skills possam ser criadas, revisadas e reutilizadas com consistência.
+Repository for sharing reusable skills for agents and development assistants. The goal is to centralize patterns, documentation, and conventions so new skills can be created, reviewed, and reused consistently.
 
-## Objetivo
+> **Languages:** This is the default (English) README. For Portuguese, see [README.pt.md](README.pt.md).
 
-- Agrupar skills focadas em automação, planejamento e execução de tarefas.
-- Padronizar a estrutura e a documentação das skills.
-- Facilitar colaboração entre pessoas que desejam criar ou evoluir skills.
-- Manter cada skill simples, reutilizável e fácil de entender.
+## Purpose
 
-## Estrutura do repositório
+- Group skills focused on automation, planning, and task execution.
+- Standardize skill structure and documentation.
+- Make collaboration easier for people who want to create or evolve skills.
+- Keep each skill simple, reusable, and easy to understand.
+
+## Repository Structure
 
 ```text
 my-skills/
 ├── README.md
+├── README.pt.md
 ├── spec-kit/
 │   ├── spec-kit/
 │   │   ├── SKILL.md
@@ -30,142 +33,149 @@ my-skills/
 │   │   └── SKILL.md
 │   └── spec-kit-tasks/
 │       └── SKILL.md
-└── ...outras-skills/
+├── executor/
+│   ├── task-executor/
+│   │   └── SKILL.md
+│   ├── task-executor-m24h/
+│   │   └── SKILL.md
+│   └── task-executor-architect/
+│       └── SKILL.md
+└── ...other-skills/
     └── SKILL.md
 ```
 
-## Padrão de colaboração
+## Collaboration Standard
 
-Toda skill deve seguir uma estrutura simples e previsível. Isso facilita leitura, manutenção e uso em diferentes contextos.
+Every skill must follow a simple, predictable structure. This makes skills easier to read, maintain, and use across different contexts.
 
-### 1. Nome da pasta
+### 1. Folder Name
 
-Use um nome curto, descritivo e em minúsculas, preferencialmente com hífen quando necessário.
+Use a short, descriptive, lowercase name, preferably with hyphens when needed.
 
-Exemplos:
+Examples:
 
 - spec-kit
 - spec-kit-plan
 - azure-deploy
 - python-appservice-deploy
 
-### 2. Arquivo principal
+### 2. Main File
 
-Cada skill deve conter um arquivo chamado `SKILL.md` na raiz da pasta.
+Each skill must contain a file named `SKILL.md` at the root of its folder.
 
-O arquivo deve seguir esse padrão mínimo:
+The file must follow this minimum pattern:
 
 ```yaml
 ---
-name: nome-da-skill
-created by: Seu Nome
-description: "Descreva quando a skill deve ser usada e qual problema resolve."
-argument-hint: "Exemplo de entrada para uso da skill"
+name: skill-name
+created by: Your Name
+description: "Describe when the skill should be used and what problem it solves."
+argument-hint: "Example input for using the skill"
 ---
 ```
 
-### 3. Estrutura recomendada do conteúdo
+### 3. Recommended Content Structure
 
-Cada `SKILL.md` deve ter, no mínimo:
+Each `SKILL.md` must include, at minimum:
 
-- `## Purpose` ou `## Objetivo`
-- `## When to Use` ou `## Quando usar`
-- `## Procedure` ou `## Procedimento`
-- `## Output` ou `## Saída`
-- `## Verification` ou `## Verificação`
+- `## Purpose`
+- `## When to Use`
+- `## Procedure`
+- `## Output`
+- `## Verification`
 
-Esse padrão torna a skill fácil de entender por humanos e por agentes.
+This pattern makes the skill easy to understand for both humans and agents.
 
-## Diretrizes de qualidade
+## Quality Guidelines
 
-Ao criar ou ajustar uma skill, siga estas regras:
+When creating or updating a skill, follow these rules:
 
-- Mantenha a skill focada em um objetivo específico.
-- Evite acoplamento com tecnologias específicas quando a solução puder ser genérica.
-- Prefira instruções claras e observáveis.
-- Escreva cenários reais de uso.
-- Use linguagem direta e objetiva.
-- Evite placeholders vagos ou instruções ambíguas.
-- Documente dependências, saídas esperadas e critérios de validação.
-- Garanta que a skill possa ser reutilizada em contextos diferentes.
+- Keep the skill focused on a specific goal.
+- Avoid coupling to specific technologies when the solution can be generic.
+- Prefer clear, observable instructions.
+- Write real-world usage scenarios.
+- Use direct, objective language.
+- Avoid vague placeholders or ambiguous instructions.
+- Document dependencies, expected outputs, and validation criteria.
+- Ensure the skill can be reused in different contexts.
 
-## Convenções de documentação
+## Documentation Conventions
 
-- Tome cuidado com nomenclatura consistente.
-- Use exemplos práticos no `argument-hint` e no texto de uso.
-- Quando a skill orquestra outras skills, deixe explícita a ordem de execução.
-- Se houver arquivos gerados, diga exatamente qual pasta ou padrão de saída deve ser utilizado.
-- Mantenha a documentação alinhada com o comportamento efetivo da skill.
+- Be careful with consistent naming.
+- Use practical examples in `argument-hint` and usage text.
+- When a skill orchestrates other skills, make the execution order explicit.
+- If generated files exist, state exactly which folder or output pattern must be used.
+- Keep documentation aligned with the skill's actual behavior.
 
-## Fluxo de contribuição
+## Contribution Flow
 
-1. Crie uma branch para sua alteração.
-2. Crie ou edite a pasta da skill.
-3. Atualize o `SKILL.md` com a estrutura padrão.
-4. Documente quando usar, como usar e qual resultado esperar.
-5. Valide se a skill está coerente com o restante do repositório.
-6. Abra um pull request com uma descrição clara do objetivo e do impacto.
+1. Create a branch for your change.
+2. Create or edit the skill folder.
+3. Update `SKILL.md` with the standard structure.
+4. Document when to use it, how to use it, and what result to expect.
+5. Validate that the skill is consistent with the rest of the repository.
+6. Open a pull request with a clear description of the goal and impact.
 
-## Checklist antes de enviar uma contribuição
+## Pre-Submission Checklist
 
-- [ ] A pasta da skill tem nome adequado.
-- [ ] O arquivo `SKILL.md` existe e está no formato correto.
-- [ ] O `description` explica bem o propósito da skill.
-- [ ] O `argument-hint` mostra um exemplo útil.
-- [ ] O conteúdo está organizado em seções claras.
-- [ ] A skill não depende de suposições ocultas.
-- [ ] A documentação está consistente com a intenção real da skill.
+- [ ] The skill folder has an appropriate name.
+- [ ] The `SKILL.md` file exists and is in the correct format.
+- [ ] The `description` clearly explains the skill's purpose.
+- [ ] The `argument-hint` shows a useful example.
+- [ ] Content is organized in clear sections.
+- [ ] The skill does not rely on hidden assumptions.
+- [ ] Documentation is consistent with the skill's actual intent.
 
-## Exemplo de skill bem estruturada
+## Example of a Well-Structured Skill
 
 ```md
 ---
-name: exemplo-skill
-created by: Seu Nome
-description: "Use quando você precisa automatizar uma tarefa repetitiva de planejamento."
-argument-hint: "Quero planejar uma funcionalidade de cadastro de usuários"
+name: example-skill
+created by: Your Name
+description: "Use when you need to automate a repetitive planning task."
+argument-hint: "I want to plan a user registration feature"
 ---
 
-# Exemplo de Skill
+# Example Skill
 
 ## Purpose
 
-Automatizar a criação de um plano inicial para uma funcionalidade.
+Automate the creation of an initial plan for a feature.
 
 ## When to Use
 
-- Quando o pedido envolve planejamento antes da implementação.
-- Quando é preciso gerar um checklist de execução.
+- When the request involves planning before implementation.
+- When a execution checklist needs to be generated.
 
 ## Procedure
 
-1. Entender o objetivo.
-2. Identificar escopo.
-3. Dividir em etapas.
-4. Produzir uma proposta objetiva.
+1. Understand the goal.
+2. Identify scope.
+3. Break down into steps.
+4. Produce an objective proposal.
 
 ## Output
 
-Um plano em formato de checklist com etapas sequenciais.
+A checklist-style plan with sequential steps.
 
 ## Verification
 
-- Verificar se o escopo foi compreendido.
-- Confirmar que as etapas estão em ordem lógica.
+- Verify that scope was understood.
+- Confirm that steps are in logical order.
 ```
 
-## Boa prática final
+## Final Best Practice
 
-Este repositório funciona melhor quando cada skill é:
+This repository works best when each skill is:
 
-- pequena e especializada;
-- clara em seu propósito;
-- fácil de revisar;
-- reutilizável em múltiplos contextos;
-- documentada sem ambiguidades.
+- small and specialized;
+- clear in its purpose;
+- easy to review;
+- reusable across multiple contexts;
+- documented without ambiguity.
 
-Se a skill for bem escrita, ela se torna mais fácil de compartilhar, evoluir e aplicar em workflows reais.
+When a skill is well written, it becomes easier to share, evolve, and apply in real workflows.
 
-## Contribuição
+## Contributing
 
-Contribuições são bem-vindas. O importante é manter o padrão de organização e clareza para que o repositório continue útil e consistente para toda a equipe.
+Contributions are welcome. The important thing is to maintain the organization and clarity standard so the repository remains useful and consistent for the whole team.

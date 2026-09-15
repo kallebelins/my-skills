@@ -8,18 +8,18 @@ generated_by: spec-kit
 
 # Plan — {{Feature Name}}
 
-<!-- Cada Fase abaixo DEVE mapear 1:1 com um item do "Scope Summary" do spec.md. Não invente fases fora dessa lista. -->
+<!-- Each Phase below MUST map 1:1 to an item in spec.md's "Scope Summary". Do not invent phases outside that list. -->
 
-## Fases
+## Phases
 
-- [ ] Fase 1 — {{nome, igual ao item 1 do Scope Summary}}
-  - Depende de: {{nenhuma | Fase N}}
-  - Entrega: {{referência às seções/contratos/modelos de spec.md cobertos}}
+- [ ] Phase 1 — {{name, same as Scope Summary item 1}}
+  - Depends on: {{none | Phase N}}
+  - Delivers: {{reference to spec.md sections/contracts/models covered}}
 
-- [ ] Fase 2 — {{nome, igual ao item 2 do Scope Summary}}
-  - Depende de: {{Fase 1}}
-  - Entrega: {{...}}
+- [ ] Phase 2 — {{name, same as Scope Summary item 2}}
+  - Depends on: {{Phase 1}}
+  - Delivers: {{...}}
 
 ## Out of Scope
-<!-- Copiado verbatim de spec.md "Out of Scope" -->
+<!-- Copied verbatim from spec.md "Out of Scope" -->
 - {{...}}

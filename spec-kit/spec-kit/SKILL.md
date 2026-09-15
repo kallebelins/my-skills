@@ -1,6 +1,6 @@
 ---
 name: spec-kit
-created by: Kallebe Lins
+created by: Kallebe Lins | gh:kallebelins/my-skills
 description: "Use when planning a feature for this repository. Triggers on: plan a feature, generate a spec-kit, /spec command, specify and plan work before coding. Orchestrates 4 sub-skills to produce spec.md, plan.md and tasks.md under docs/specs/feature-{NNN}/, and register the feature in docs/backlog.md, in that strict order. Stack-agnostic — never assumes angular/dotnet/quarkus."
 argument-hint: "Feature name/description (free text) and, optionally, a path to a context file with business rules"
 ---
@@ -26,7 +26,7 @@ All files MUST be created under `docs/specs/feature-{NNN}/` (see Step 1 for `{NN
 | # | File | Written by | Content |
 |---|------|-----------|---------|
 | 1 | `spec.md` | [`spec-kit-spec`](../spec-kit-spec/SKILL.md) | Complete specification: business rules, contracts/data models (when applicable), edge cases, error handling, measurable acceptance criteria |
-| 2 | `plan.md` | [`spec-kit-plan`](../spec-kit-plan/SKILL.md) | Ordered phases ("Fases"), each with a `[ ]` checkbox, derived 1:1 from `spec.md`'s Scope Summary |
+| 2 | `plan.md` | [`spec-kit-plan`](../spec-kit-plan/SKILL.md) | Ordered phases, each with a `[ ]` checkbox, derived 1:1 from `spec.md`'s Scope Summary |
 | 3 | `tasks.md` | [`spec-kit-tasks`](../spec-kit-tasks/SKILL.md) | Tasks grouped by phase, each with architecture/implementation detail inline and its own `[ ]` checkbox |
 
 **Why this order:** `spec.md` defines what will be built — it must exist before `plan.md` can sequence it into phases and before `tasks.md` can break it into concrete actions.
@@ -81,7 +81,7 @@ Follow each sub-skill below **in this exact order**. Each one declares its own p
 
 Always run this step after Step 5 passes — this is not optional, every spec written must be reflected in the backlog:
 
-1. Invoke [`spec-kit-backlog/SKILL.md`](../spec-kit-backlog/SKILL.md) in **Modo A — Registrar spec existente**, passing the path to the `spec.md` just written.
+1. Invoke [`spec-kit-backlog/SKILL.md`](../spec-kit-backlog/SKILL.md) in **Mode A — Register existing spec**, passing the path to the `spec.md` just written.
 2. `spec-kit-backlog` creates or updates `docs/backlog.md` at the project's `docs/` root (not inside `docs/specs/feature-{NNN}/`) with a `[ ]` entry for this feature.
 3. Confirm the entry was added (or already existed, idempotently) before reporting back to the user.
 
