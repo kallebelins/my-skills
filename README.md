@@ -43,9 +43,25 @@ my-skills/
 │   │   └── SKILL.md
 │   └── task-executor-architect/
 │       └── SKILL.md
+├── presets/
+│   ├── cursor/{task-executor,task-executor-m24h,task-executor-architect}/
+│   ├── vscode/{task-executor,task-executor-m24h,task-executor-architect}/
+│   ├── claude-code/{task-executor,task-executor-m24h,task-executor-architect}/
+│   └── kiro/{task-executor,task-executor-m24h,task-executor-architect}/
 └── ...other-skills/
     └── SKILL.md
 ```
+
+## Project Bootstrap (Presets)
+
+To wire a consumer project so the agent always uses **spec-kit** for planning and a **task-executor** variant for execution, copy a preset from [`presets/`](presets/).
+
+1. Choose the tool: `cursor`, `vscode`, `claude-code`, or `kiro`.
+2. Choose the executor: `task-executor`, `task-executor-m24h`, or `task-executor-architect`.
+3. Copy the contents of `presets/<tool>/<executor>/` into the target project root.
+4. Install the matching skills from `spec-kit/` and `executor/`.
+
+Full install guide: [presets/README.md](presets/README.md).
 
 ## Collaboration Standard
 
