@@ -43,6 +43,12 @@ my-skills/
 │   │   └── SKILL.md
 │   └── task-executor-architect/
 │       └── SKILL.md
+├── migration/
+│   └── migration-backlog-m24h/
+│       ├── SKILL.md
+│       └── templates/
+│           ├── migration-architecture.template.md
+│           └── migration-backlog.template.md
 ├── presets/
 │   ├── cursor/{task-executor,task-executor-m24h,task-executor-architect}/
 │   ├── vscode/{task-executor,task-executor-m24h,task-executor-architect}/
