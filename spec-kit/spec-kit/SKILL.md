@@ -1,90 +1,137 @@
 ---
 name: spec-kit
-created by: Kallebe Lins | gh:kallebelins/my-skills
-description: "Use when planning a feature for this repository. Triggers on: plan a feature, generate a spec-kit, /spec command, specify and plan work before coding. Orchestrates 4 sub-skills to produce spec.md, plan.md and tasks.md under docs/specs/feature-{NNN}/, and register the feature in docs/backlog.md, in that strict order. Stack-agnostic — never assumes angular/dotnet/quarkus."
-argument-hint: "Feature name/description (free text) and, optionally, a path to a context file with business rules"
+description: "Orchestrates feature planning before any code is written: resolves the feature folder and architecture reference, gathers business context, then hands off to spec-kit-1-specify, spec-kit-2-plan, spec-kit-3-tasks and spec-kit-4-backlog in strict order to produce spec.md, plan.md, tasks.md under docs/specs/feature-{NNN}/ and register the feature in docs/backlog.md. Stack-agnostic. WHEN: plan a feature, specify a feature, /spec, generate a spec-kit, break a feature into phases and tasks before coding. DO NOT USE FOR: implementing tasks (use spec-kit-executor), writing application code."
+argument-hint: "Feature name/description (free text) and, optionally, the path to a context file with business rules"
 ---
 
-# Spec-Kit Generation (Orchestrator)
+# Spec-Kit (Orchestrator)
 
 ## Purpose
 
-Turn a feature request into a complete, self-contained spec-kit — `spec.md`, `plan.md`, `tasks.md` — before any code is written. This skill does not write file content itself: it resolves the feature folder and architecture reference, gathers business context, and then delegates each file to a dedicated sub-skill, in an order where each file only depends on files already written.
-
-This skill is **stack-agnostic**. It must never hardcode `angular`, `dotnet`, or `quarkus` — the architecture reference is always resolved at runtime (Step 2).
+Turn a feature request into a complete spec-kit — `spec.md`, `plan.md`, `tasks.md` — and a backlog entry, before any code is written. This skill does not write file content itself: it resolves shared context and hands off each file to a dedicated sub-skill, in an order where each file only depends on files already written.
 
 ## When to Use
 
-- Someone asks to plan, specify, or spec out a feature before implementing it
-- A `/spec` command is triggered
-- You need to capture business rules and break them into phases/tasks before coding begins
+- The user asks to plan, specify or spec out a feature before implementing it.
+- The `/spec` command is triggered.
+- Business rules must be captured and broken into phases/tasks before coding.
 
-## Output Files (generation order — do not reorder)
+## When Not to Use
 
-All files MUST be created under `docs/specs/feature-{NNN}/` (see Step 1 for `{NNN}`):
+- Implementing or marking a task as done → hand off to `spec-kit-executor`.
+- Only maintaining the backlog (brainstorming/discovery) → hand off to `spec-kit-4-backlog`.
+- Any request that requires writing application code.
 
-| # | File | Written by | Content |
-|---|------|-----------|---------|
-| 1 | `spec.md` | [`spec-kit-spec`](../spec-kit-spec/SKILL.md) | Complete specification: business rules, contracts/data models (when applicable), edge cases, error handling, measurable acceptance criteria |
-| 2 | `plan.md` | [`spec-kit-plan`](../spec-kit-plan/SKILL.md) | Ordered phases, each with a `[ ]` checkbox, derived 1:1 from `spec.md`'s Scope Summary |
-| 3 | `tasks.md` | [`spec-kit-tasks`](../spec-kit-tasks/SKILL.md) | Tasks grouped by phase, each with architecture/implementation detail inline and its own `[ ]` checkbox |
+## Inputs
 
-**Why this order:** `spec.md` defines what will be built — it must exist before `plan.md` can sequence it into phases and before `tasks.md` can break it into concrete actions.
+| Input | Required | Source | If missing |
+|---|---|---|---|
+| Feature name/description | Yes | Conversation | Ask the user. |
+| Context file (requirements, refinement) | No | Path given by the user | Proceed with the conversation only. |
+| Architecture reference | Yes | `docs/*architecture*.md` | Hand off to `spec-kit-0-architecture` (Step 2). |
 
-After these 3 files exist, a 4th sub-skill registers the feature at project level:
+## Preconditions
 
-| # | File | Written by | Content |
-|---|------|-----------|---------|
-| 4 | `docs/backlog.md` | [`spec-kit-backlog`](../spec-kit-backlog/SKILL.md) | One `[ ]` entry for this feature, added to the project's macro-level feature list (outside `docs/specs/feature-{NNN}/`) |
+- [ ] The request is planning, not execution.
+- [ ] The repository root is known (folder that contains `docs/` or where `docs/` will be created).
 
 ## Procedure
 
-### Step 1 — Resolve the Feature Folder
+### Step 1 — Resolve the feature folder
 
-1. List existing folders under `docs/specs/` matching `feature-{NNN}` (3-digit zero-padded, e.g. `feature-001`, `feature-002`).
-2. Take the highest `NNN` found and use `NNN + 1` as the new feature number. If `docs/specs/` doesn't exist or has no `feature-*` folders, start at `feature-001`.
-3. Create `docs/specs/feature-{NNN}/`. This is the only folder this skill and its sub-skills may write to for this run.
-4. The human-readable feature name/description (given by the user) is used inside the file contents (titles, headings) — it is **not** part of the folder name.
+1. List folders under `docs/specs/` matching `feature-{NNN}` (3 digits, zero-padded).
+2. If none exist (or `docs/specs/` does not exist) → use `feature-001`. Otherwise → use highest `NNN` + 1. Ignore suffixes (e.g. `feature-082-gs` counts as `082`).
+3. Create `docs/specs/feature-{NNN}/`. This is the only folder the sub-skills 1–3 may write to in this run.
+4. Use the human-readable feature name only inside file contents, never in the folder name.
 
-### Step 2 — Resolve the Architecture Reference
+### Step 2 — Resolve the architecture reference
 
-1. Check whether `docs/architecture.md` exists at the repo root.
-2. If it exists: read it and use it as the single source of truth for architecture/implementation conventions in Steps 4-5 below.
-3. If it does **not** exist:
-   a. Suggest running [`spec-kit-architecture`](../spec-kit-architecture/SKILL.md) to generate `docs/architecture.md` (brownfield discovery or greenfield definition) before planning features — this is the recommended path for a durable architecture reference with governance principles and development guidelines.
-   b. If the user declines or needs a one-off spec now, fall back to asking which architecture/pattern to follow for this feature (e.g. point to an existing `docs/{stack}/` guide such as `docs/dotnet/`, `docs/angular/`, `docs/quarkus/`, or describe the pattern directly). Do not guess or default to a specific stack.
-4. Record the resolved reference (file path or the user's description) — it will be quoted in `tasks.md` by `spec-kit-tasks`.
+1. Search `docs/` for files matching `*architecture*.md`.
+2. If exactly one applies to the feature's module/stack → read it and record its path as `architecture_ref`.
+3. If several exist → ask the user which applies (feature may span several; record all that apply).
+4. If none exists → hand off to `spec-kit-0-architecture`. Resume at Step 3 only after it returns a written document path.
+5. If the user refuses to create one → ask the user to describe the pattern; record `agreed with the user: <short description>`.
 
-### Step 3 — Gather Business Context
+### Step 3 — Gather business context
 
-1. Use the feature description already given by the user in the conversation as the primary source.
-2. If the user points to a context file (e.g. a requirements doc), read it with `read_file` and treat it as an additional source, on equal footing with the conversation text.
-3. If business rules, criteria, or scope are incomplete or ambiguous for a spec this complete, ask the user targeted clarifying questions rather than inventing rules. Do not proceed to Step 4 with unresolved gaps that block writing measurable acceptance criteria.
+1. Use the feature description in the conversation as the primary source.
+2. If the user gave a context file → read it in full; treat it as equal to the conversation.
+3. If rules, scope or criteria are ambiguous enough to block measurable acceptance criteria → ask targeted questions. Do not continue to Step 4 with blocking gaps.
 
-### Step 4 — Generate the Spec Files, in Strict Order
+### Step 4 — Generate the files, in strict order
 
-Follow each sub-skill below **in this exact order**. Each one declares its own preconditions and self-check — do not skip a sub-skill's checklist and do not start sub-skill N+1 before sub-skill N's output file exists and passes its self-check.
+Hand off in this exact order. Do not start sub-skill N+1 until sub-skill N's file exists and passes its own Done Criteria.
 
-1. [`spec-kit-spec/SKILL.md`](../spec-kit-spec/SKILL.md) → `spec.md`
-2. [`spec-kit-plan/SKILL.md`](../spec-kit-plan/SKILL.md) → `plan.md`
-3. [`spec-kit-tasks/SKILL.md`](../spec-kit-tasks/SKILL.md) → `tasks.md`
+1. `spec-kit-1-specify` → `spec.md`
+2. `spec-kit-2-plan` → `plan.md`
+3. `spec-kit-3-tasks` → `tasks.md`
 
-### Step 5 — Self-Verification Before Handing Back
+### Step 5 — Cross-file verification
 
-- [ ] All 3 files exist under `docs/specs/feature-{NNN}/`
-- [ ] Every file's frontmatter matches its template in `spec-kit/templates/`
-- [ ] No `{{placeholder}}` remaining in any file
-- [ ] No files outside `docs/specs/feature-{NNN}/` were created or modified, except `docs/backlog.md` (Step 6)
-- [ ] No files from other `feature-*/` folders were touched
-- [ ] `plan.md` phases map 1:1 to `spec.md`'s Scope Summary; `tasks.md` phases map 1:1 to `plan.md` phases
-- [ ] Every task in `tasks.md` references the architecture source resolved in Step 2
+Run the Done Criteria checks 1–7 below. If any fails → fix the responsible file via its sub-skill, then re-check.
 
-### Step 6 — Register the Feature in the Backlog
+### Step 6 — Register in the backlog (mandatory)
 
-Always run this step after Step 5 passes — this is not optional, every spec written must be reflected in the backlog:
+1. Hand off to `spec-kit-4-backlog` in **Mode A — Register existing spec**, passing the `spec.md` path.
+2. Confirm the entry exists in `docs/backlog.md` (added or already present).
 
-1. Invoke [`spec-kit-backlog/SKILL.md`](../spec-kit-backlog/SKILL.md) in **Mode A — Register existing spec**, passing the path to the `spec.md` just written.
-2. `spec-kit-backlog` creates or updates `docs/backlog.md` at the project's `docs/` root (not inside `docs/specs/feature-{NNN}/`) with a `[ ]` entry for this feature.
-3. Confirm the entry was added (or already existed, idempotently) before reporting back to the user.
+### Step 7 — Report
 
-Report back to the user with the feature folder path, a short summary of the phases created, and confirmation that the feature was added to `docs/backlog.md`.
+Report: feature folder path, list of phases, and confirmation of the backlog entry.
+
+## Rules
+
+### MUST
+
+- Follow the order spec → plan → tasks → backlog.
+- Use the templates in [templates/](templates/) for every file.
+- Write every generated file and every message to the user in English, including headings, field labels and identifiers (`BR-XX`, `AC-XX`). Keep YAML frontmatter keys, file names and code identifiers unchanged.
+- Ask instead of guessing whenever business rules or architecture are unknown.
+
+### MUST NOT
+
+- Write application code or run implementation tasks.
+- Hardcode a stack (Angular, .NET, Spring, Quarkus, etc.); the stack comes from `architecture_ref`.
+- Create or modify files outside `docs/specs/feature-{NNN}/`, except `docs/backlog.md` (Step 6) and the architecture document (Step 2, via `spec-kit-0-architecture`).
+- Touch other `feature-*` folders.
+- Invent business rules, contracts, paths or conventions not present in the sources.
+
+## Resources
+
+| File | When to read |
+|---|---|
+| [templates/spec.template.md](templates/spec.template.md) | Used by `spec-kit-1-specify` |
+| [templates/plan.template.md](templates/plan.template.md) | Used by `spec-kit-2-plan` |
+| [templates/tasks.template.md](templates/tasks.template.md) | Used by `spec-kit-3-tasks` |
+| [templates/backlog.template.md](templates/backlog.template.md) | Used by `spec-kit-4-backlog` |
+
+## Handoff
+
+| Order | Skill | Receives | Returns |
+|---|---|---|---|
+| 0 (conditional) | [spec-kit-0-architecture](../spec-kit-0-architecture/SKILL.md) | Module/stack to document | Path of `docs/<module>-architecture.md` |
+| 1 | [spec-kit-1-specify](../spec-kit-1-specify/SKILL.md) | Feature folder, `architecture_ref`, business context | `spec.md` |
+| 2 | [spec-kit-2-plan](../spec-kit-2-plan/SKILL.md) | `spec.md` | `plan.md` |
+| 3 | [spec-kit-3-tasks](../spec-kit-3-tasks/SKILL.md) | `spec.md`, `plan.md`, `architecture_ref` | `tasks.md` |
+| 4 | [spec-kit-4-backlog](../spec-kit-4-backlog/SKILL.md) | `spec.md` path (Mode A) | Backlog entry |
+| After planning | [spec-kit-executor](../spec-kit-executor/SKILL.md) | A task from `tasks.md` | Implemented task |
+
+## Output
+
+- `docs/specs/feature-{NNN}/spec.md`, `plan.md`, `tasks.md`.
+- One entry in `docs/backlog.md`.
+- Output language: English.
+
+## Done Criteria
+
+- [ ] 1. All 3 files exist under `docs/specs/feature-{NNN}/`.
+- [ ] 2. Every file's frontmatter matches its template.
+- [ ] 3. No `{{placeholder}}` remains.
+- [ ] 4. `plan.md` phases map 1:1 to `spec.md` **Scope Summary**; `tasks.md` phases map 1:1 to `plan.md`.
+- [ ] 5. Every task in `tasks.md` is grounded in `architecture_ref`.
+- [ ] 6. No file outside the allowed set was created or modified.
+- [ ] 7. No other `feature-*` folder was touched.
+- [ ] 8. Backlog entry confirmed.
+- [ ] 9. All generated content is in English.
+
+_Original author: Kallebe Lins | gh:kallebelins/my-skills_

@@ -36,7 +36,7 @@ This skill is **planning only**. It never changes application source, project fi
 
 - Executing the migration tasks (use `task-executor-m24h` on the generated backlog).
 - Planning new product features (use `spec-kit`).
-- Creating the general project `docs/architecture.md` (use `spec-kit-architecture`).
+- Creating the general project architecture reference (use `spec-kit-0-architecture`).
 
 ## Non-Negotiable Rules
 
@@ -61,7 +61,7 @@ This skill is **planning only**. It never changes application source, project fi
 | API contract policy | No | `parity` (default, recommended) \| `controlled-changes` (each change approved individually and versioned) |
 | Critical flows for production tracing | No | If missing, propose 3–7 from discovery and mark `proposed` |
 | Deployment context | No | Hosting, environments, CI; `unknown` if not given |
-| Language of the documents | No | Default: the language the user wrote in; keep IDs, tool names, and code identifiers in English |
+| Language of the documents | No | Default: English; keep IDs, tool names, and code identifiers unchanged |
 
 Ask only for what cannot be discovered. Batch all questions in a single message.
 
@@ -169,7 +169,7 @@ Define two profiles:
 
 Rules: no PII/secret/payload in span attributes, low-cardinality names, consistent naming per layer, and a documented list of **critical flows**. Observability is implemented as backlog items, each with tests that assert spans/metrics/log correlation (for example with in-memory exporters).
 
-**Secrets Policy.** The MCP compliance checklist asks for secrets from environment variables, user secrets, or a secret store. This project explicitly does not apply secrets handling in this migration. Record it as deviation `D-001` in the architecture document (what, why, accepted by the user, risk) and never raise it as a backlog item. Only note in the risks section that credentials already present in configuration are out of scope and must not be copied into docs or test fixtures.
+**Secrets Policy.** The MCP compliance checklist asks for secrets from environment variables, user secrets, or a secret store. This skill deliberately does not plan secrets handling in this migration (keep current configuration as is). Record it as deviation `D-001` in the architecture document (what, why, accepted by the user, risk) and never raise it as a backlog item. Only note in the risks section that credentials already present in configuration are out of scope and must not be copied into docs or test fixtures.
 
 **Testing rules.** See the dedicated section below. Decide tools from the existing test stack first; fall back to the stack recommended by `get_test_scaffold`.
 
@@ -264,28 +264,28 @@ Before finishing:
 ## Example Prompt (recommended)
 
 ```text
-Planeje a migração deste projeto da versão atual do .NET para o .NET 10, substituindo
-as implementações locais pelas equivalentes do Mvp24Hours.
+Plan the migration of this project from its current .NET version to .NET 10, replacing
+the local implementations with the Mvp24Hours equivalents.
 
-Use o MCP mvp24hours como fonte de verdade sobre a biblioteca.
+Use the mvp24hours MCP as the source of truth about the library.
 
-Restrições:
-- Mantenha as configurações atuais (chaves, seções, variáveis de ambiente e valores). Não aplicaremos secrets.
-- Expanda observabilidade e tracing para todas as camadas, com acompanhamento ponta a ponta
-  em desenvolvimento e parcial em produção (apenas os fluxos principais).
-- Cada item migrado deve ter testes (incluindo teste de caracterização antes da troca).
-- Ao final, tudo deve estar funcionando: build sem warnings como erro, testes verdes, compliance check limpo.
+Constraints:
+- Keep the current configuration (keys, sections, environment variables and values). We will not apply secrets.
+- Expand observability and tracing to all layers, with end-to-end tracking
+  in development and partial tracking in production (main flows only).
+- Every migrated item must have tests (including a characterization test before the swap).
+- At the end, everything must work: build without warnings as errors, green tests, clean compliance check.
 
-Nesta fase, gere apenas:
-1. docs/migration/architecture.md (documento de arquitetura da migração)
-2. docs/migration/backlog.md (backlog executável com as ações para eu migrar o projeto com qualidade)
+In this phase, generate only:
+1. docs/migration/architecture.md (migration architecture document)
+2. docs/migration/backlog.md (executable backlog with the actions for me to migrate the project with quality)
 
-Não altere código-fonte, projetos ou pacotes.
+Do not change source code, projects or packages.
 ```
 
-Estratégia e contrato (acrescente ao prompt quando quiser algo diferente do padrão `parallel` + `parity`):
+Strategy and contract (add to the prompt when you want something different from the default `parallel` + `parity`):
 
 ```text
-Estratégia: em paralelo (nova solução .NET 10 ao lado da atual), com paridade de contrato da API.
-Mudanças de contrato só como itens separados, versionados e aprovados por mim.
+Strategy: parallel (new .NET 10 solution next to the current one), with API contract parity.
+Contract changes only as separate, versioned items approved by me.
 ```

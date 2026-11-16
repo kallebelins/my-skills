@@ -4,7 +4,7 @@ Templates de configuração de agente prontos para copiar, que conectam um proje
 
 Estes arquivos **não** são skills. São instruções específicas de cada ferramenta que você copia para o projeto alvo, para o agente sempre rotear:
 
-- **Planejamento** → `spec-kit` (e `spec-kit-architecture` quando necessário)
+- **Planejamento** → `spec-kit` (e `spec-kit-0-architecture` quando necessário)
 - **Execução** → uma das três variantes de executor
 
 > **Idiomas:** Este é o README em português. Para a versão padrão (inglês), veja [README.md](README.md).
@@ -78,7 +78,7 @@ Copy-Item -Recurse presets\kiro\task-executor\.kiro C:\caminho\do\seu-projeto\
 Pedido do usuário
     │
     ├─ Planejamento (feature / /spec / decompor)
-    │     → spec-kit-architecture (se não houver docs/architecture.md)
+    │     → spec-kit-0-architecture (se não houver docs/*architecture*.md)
     │     → spec-kit → docs/specs/feature-{NNN}/ + docs/backlog.md
     │
     └─ Execução (implementar tarefa / marcar feito)
@@ -92,6 +92,6 @@ Os presets **roteiam** para as skills; não duplicam os procedimentos delas.
 
 - Após o primeiro `spec-kit`: `docs/specs/feature-{NNN}/` com `spec.md`, `plan.md`, `tasks.md`
 - Lista macro: `docs/backlog.md`
-- Recomendado: `docs/architecture.md` (via `spec-kit-architecture`)
+- Recomendado: `docs/<módulo>-architecture.md` (via `spec-kit-0-architecture`)
 
 Não é necessário criar essas pastas manualmente antes de copiar um preset — o `spec-kit` as cria quando o planejamento começa.

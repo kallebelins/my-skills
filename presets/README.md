@@ -4,7 +4,7 @@ Copy-ready agent configuration templates that wire a target project to the **spe
 
 These are **not** skills. They are tool-specific instruction files you copy into a consumer project so the agent always routes:
 
-- **Planning** → `spec-kit` (and `spec-kit-architecture` when needed)
+- **Planning** → `spec-kit` (and `spec-kit-0-architecture` when needed)
 - **Execution** → one of the three executor variants
 
 > **Languages:** This is the default (English) README. For Portuguese, see [README.pt.md](README.pt.md).
@@ -78,7 +78,7 @@ Copy-Item -Recurse presets\kiro\task-executor\.kiro C:\path\to\your-project\
 User request
     │
     ├─ Planning (feature / /spec / decompose)
-    │     → spec-kit-architecture (if no docs/architecture.md)
+    │     → spec-kit-0-architecture (if no docs/*architecture*.md)
     │     → spec-kit → docs/specs/feature-{NNN}/ + docs/backlog.md
     │
     └─ Execution (implement task / mark done)
@@ -92,6 +92,6 @@ Presets **route** to skills; they do not duplicate skill procedures.
 
 - After the first `spec-kit` run: `docs/specs/feature-{NNN}/` with `spec.md`, `plan.md`, `tasks.md`
 - Macro list: `docs/backlog.md`
-- Recommended: `docs/architecture.md` (via `spec-kit-architecture`)
+- Recommended: `docs/<module>-architecture.md` (via `spec-kit-0-architecture`)
 
 No need to create these folders manually before copying a preset — `spec-kit` creates them when planning starts.

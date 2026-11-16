@@ -3,7 +3,8 @@ doc: tasks
 feature: {{feature name}}
 status: draft
 depends_on: [plan.md, spec.md]
-generated_by: spec-kit
+architecture_ref: {{same value as in spec.md}}
+generated_by: spec-kit-3-tasks
 ---
 
 # Tasks — {{Feature Name}}
@@ -11,23 +12,21 @@ generated_by: spec-kit
 <!--
 Mandatory task format (one action per task):
 
-- [ ] X.X - Task name
+- [ ] X.Y - Task name
 Description: {{what to do}}
-Architecture/Implementation: {{layer/pattern/convention, based on the resolved architecture reference (docs/architecture.md or pattern agreed with the user)}}
-Input: {{reference to spec.md#..., if any}}
-Output: {{artifact/file to create or modify}}
+Architecture/Implementation: {{layer/pattern/convention, grounded in architecture_ref}}
+Input: {{spec.md#section reference, if any}}
+Output: {{file/artifact to create or change}}
 Test scenarios: {{if any}}
-Acceptance criteria: {{measurable, traceable to spec.md}}
+Acceptance criteria: {{measurable, traceable to the spec.md AC-XX}}
 
-X = Phase number (same order as plan.md), X.X = sequence within the phase.
+X = Phase number (same order as plan.md); Y = sequence within the phase.
 
-Execution protocol (spec-kit-tasks/SKILL.md): when completing a task, mark "- [x]", add
-a "Comment:" line with what was done and, if there is pending work, create sub-task(s)
-"- [ ] X.X.N - ..." nested under the parent task. When all tasks in a phase are
-"[x]", also check off the phase checkbox in plan.md.
+Execution protocol: see spec-kit-executor. When a task is finished: "- [x]", add "Comment:",
+open pending items as nested sub-tasks "- [ ] X.Y.N - ...".
 -->
 
-## Phase 1 — {{phase name, same as plan.md}}
+## Phase 1 — {{phase name, identical to plan.md}}
 
 - [ ] 1.1 - {{task name}}
 Description: {{...}}
@@ -37,7 +36,7 @@ Output: {{...}}
 Test scenarios: {{...}}
 Acceptance criteria: {{...}}
 
-## Phase 2 — {{phase name, same as plan.md}}
+## Phase 2 — {{phase name, identical to plan.md}}
 
 - [ ] 2.1 - {{task name}}
 Description: {{...}}

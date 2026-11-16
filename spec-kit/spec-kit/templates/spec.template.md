@@ -2,35 +2,35 @@
 doc: spec
 feature: {{feature name}}
 status: draft
-architecture_ref: {{docs/architecture.md or pattern agreed with the user}}
-generated_by: spec-kit
+architecture_ref: {{path of the resolved architecture document, or "agreed with the user: <short description>"}}
+generated_by: spec-kit-1-specify
 ---
 
 # Spec — {{Feature Name}}
 
 ## Sources
-- {{description provided in the conversation and/or path to the context file read}}
+- {{description given in the conversation and/or path of each context file read}}
 
 ## Scope Summary
-<!-- Enumerate the capability groups this spec covers. plan.md phases MUST map 1:1 to this list. -->
+<!-- Capability groups covered by this spec. The phases in plan.md MUST map 1:1 to this list. -->
 1. {{capability group 1}}
 2. {{capability group 2}}
 
 ## Out of Scope
-- {{explicitly excluded items — plan.md will copy these verbatim}}
+- {{explicitly excluded items — plan.md copies these items verbatim}}
 
 ## Business Rules
-<!-- Consolidate as much as possible from the sources above. Do not summarize to the point of losing rules. -->
-- {{...}}
+<!-- Consolidate every rule from the sources. Do not summarize to the point of losing rules. One rule per item. -->
+- BR-01: {{...}}
 
-<!-- Only when applicable: endpoints, components, integrations -->
+<!-- Only when applicable: endpoints, components, integrations. Otherwise, remove the section. -->
 ## Contracts
 ### {{Endpoint/component name}}
 - {{method/route or selector}}
 - Request/Props: {{...}}
 - Response/Emits: {{...}}
 
-<!-- Only when applicable -->
+<!-- Only when applicable. Otherwise, remove the section. -->
 ## Data Models
 | Field | Type | Validation | Source |
 |---|---|---|---|
@@ -43,8 +43,8 @@ generated_by: spec-kit
 - {{...}}
 
 ## Acceptance Criteria (measurable)
-- {{each criterion must be individually referenceable by a task in tasks.md}}
+- AC-01: {{each criterion must be individually referenceable by a task in tasks.md}}
 
 ## Open Questions
-<!-- Gaps that block a measurable criterion — ask the user instead of inventing. Remove the section if empty. -->
+<!-- Gaps that block a measurable criterion — ask the user instead of assuming. Remove the section when empty. -->
 - {{...}}

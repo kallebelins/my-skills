@@ -8,7 +8,7 @@ Skills from [kallebelins/my-skills](https://github.com/kallebelins/my-skills) sh
 
 Triggers: plan a feature, write a spec, `/spec`, decompose before coding.
 
-1. If `docs/architecture.md` is missing, run `spec-kit-architecture` first (or suggest it).
+1. If no `docs/*architecture*.md` exists, run `spec-kit-0-architecture` first (or suggest it).
 2. Follow the `spec-kit` skill — do **not** write application code.
 3. Produce in order: `spec.md` → `plan.md` → `tasks.md` under `docs/specs/feature-{NNN}/`, then register in `docs/backlog.md`.
 

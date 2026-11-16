@@ -34,10 +34,9 @@ Ensure demands involving architectural decisions go through an appropriate archi
 Before responding to or implementing demands involving architectural decisions,
 structure, patterns, or technical trade-offs of the project, the agent must:
 
-1. Scan skills loaded in memory (`<agent_skills>`) whose `name` or
+1. Scan the skills available in the environment (e.g. the loaded skill list) whose `name` or
    `description` indicates an architect role (e.g. `solution-architect`,
-   `mdpe-architecture`, `demand-architect`, `architecture-analyst`,
-   `architecture-proposal-architect`, `webapi-architect`, etc.).
+   `software-architect`, `architecture-analyst`, `api-architect`, etc.).
 2. Choose the most suitable one for the current demand (scope, stack, project phase).
 3. Read the chosen `SKILL.md` and follow its guidance **before** investigating
    code or implementing.

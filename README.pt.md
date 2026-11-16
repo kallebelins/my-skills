@@ -21,34 +21,34 @@ my-skills/
 │   ├── spec-kit/
 │   │   ├── SKILL.md
 │   │   └── templates/
-│   │       ├── architecture.template.md
 │   │       ├── backlog.template.md
 │   │       ├── plan.template.md
 │   │       ├── spec.template.md
 │   │       └── tasks.template.md
-│   ├── spec-kit-architecture/
-│   │   └── SKILL.md
-│   ├── spec-kit-backlog/
-│   │   └── SKILL.md
-│   ├── spec-kit-plan/
-│   │   └── SKILL.md
-│   ├── spec-kit-spec/
-│   │   └── SKILL.md
-│   └── spec-kit-tasks/
-│       └── SKILL.md
+│   ├── spec-kit-0-architecture/
+│   ├── spec-kit-1-specify/
+│   ├── spec-kit-2-plan/
+│   ├── spec-kit-3-tasks/
+│   ├── spec-kit-4-backlog/
+│   └── spec-kit-executor/
 ├── executor/
 │   ├── task-executor/
-│   │   └── SKILL.md
 │   ├── task-executor-m24h/
-│   │   └── SKILL.md
 │   └── task-executor-architect/
-│       └── SKILL.md
+├── git/
+│   └── git-sync-develop/
 ├── migration/
 │   └── migration-backlog-m24h/
 │       ├── SKILL.md
 │       └── templates/
 │           ├── migration-architecture.template.md
 │           └── migration-backlog.template.md
+├── qa/
+│   ├── qa-bug-analysis/
+│   ├── qa-java-unit-tests/
+│   └── qa-sonar-quality-gate/
+├── thinking/
+│   └── req-discovery-refinement/
 ├── presets/
 │   ├── cursor/{task-executor,task-executor-m24h,task-executor-architect}/
 │   ├── vscode/{task-executor,task-executor-m24h,task-executor-architect}/
@@ -57,6 +57,28 @@ my-skills/
 └── ...outras-skills/
     └── SKILL.md
 ```
+
+## Catálogo de skills
+
+| Skill | Pasta | O que faz |
+|---|---|---|
+| `spec-kit` | `spec-kit/spec-kit` | Orquestra o planejamento de uma feature: resolve a pasta da feature e a referência de arquitetura e executa as sub-skills em ordem para gerar `spec.md`, `plan.md`, `tasks.md` e a entrada no backlog. |
+| `spec-kit-0-architecture` | `spec-kit/spec-kit-0-architecture` | Documenta a arquitetura de um módulo (`docs/<módulo>-architecture.md`) a partir de evidências encontradas no código. |
+| `spec-kit-1-specify` … `spec-kit-4-backlog` | `spec-kit/` | Sub-skills que escrevem `spec.md`, `plan.md`, `tasks.md` e mantêm `docs/backlog.md` (chamadas pelo `spec-kit`). |
+| `spec-kit-executor` | `spec-kit/spec-kit-executor` | Executa uma tarefa registrada (ou item do plano de correção de um bug), atualiza o artefato da tarefa no próprio lugar e registra a conclusão no CHANGELOG. |
+| `task-executor` | `executor/task-executor` | Executor genérico: implementa tarefas registradas e as atualiza no próprio lugar. |
+| `task-executor-architect` | `executor/task-executor-architect` | Executor que primeiro seleciona e segue uma skill de arquitetura quando a tarefa envolve decisões arquiteturais. |
+| `task-executor-m24h` | `executor/task-executor-m24h` | Executor com roteamento automático de especialistas (`skill-router`) para projetos Mvp24Hours. |
+| `migration-backlog-m24h` | `migration/migration-backlog-m24h` | Planeja uma migração para .NET 10 com Mvp24Hours: documento de arquitetura e backlog com testes (somente planejamento). |
+| `qa-bug-analysis` | `qa/qa-bug-analysis` | Investiga um bug sem alterar código e gera `docs/bugs/bug-NNN-*.md` com causa raiz, evidências e plano de correção. |
+| `qa-java-unit-tests` | `qa/qa-java-unit-tests` | Cria ou revisa testes unitários Java (JUnit 5 + Mockito) com pelo menos 80% de cobertura por classe alterada. |
+| `qa-sonar-quality-gate` | `qa/qa-sonar-quality-gate` | Corrige issues do SonarQube a partir do link do projeto até o Quality Gate passar. |
+| `git-sync-develop` | `git/git-sync-develop` | Faz merge seguro da branch base (padrão `develop`) na branch atual, valida, publica e oferece um pull request. |
+| `req-discovery-refinement` | `thinking/req-discovery-refinement` | Transforma um brainstorm em um documento de refinamento de requisitos baseado em evidências do projeto e referências verificadas. |
+
+Fluxo típico: `req-discovery-refinement` → `spec-kit` → `spec-kit-executor` (ou uma variante de `task-executor`). Para bugs: `qa-bug-analysis` → `spec-kit-executor`.
+
+> **Idioma:** as skills, templates e documentos gerados por elas estão em inglês. Apenas os arquivos `README.pt.md` estão em português.
 
 ## Bootstrap de projetos (Presets)
 
@@ -80,10 +102,10 @@ Use um nome curto, descritivo e em minúsculas, preferencialmente com hífen qua
 Exemplos:
 
 - spec-kit
-- spec-kit-architecture
-- spec-kit-plan
-- azure-deploy
-- python-appservice-deploy
+- spec-kit-0-architecture
+- spec-kit-2-plan
+- qa-bug-analysis
+- git-sync-develop
 
 ### 2. Arquivo principal
 
@@ -102,13 +124,13 @@ argument-hint: "Exemplo de entrada para uso da skill"
 
 ### 3. Estrutura recomendada do conteúdo
 
-Cada `SKILL.md` deve ter, no mínimo:
+Cada `SKILL.md` deve ter, no mínimo, as seções abaixo (em inglês):
 
-- `## Purpose` ou `## Objetivo`
-- `## When to Use` ou `## Quando usar`
-- `## Procedure` ou `## Procedimento`
-- `## Output` ou `## Saída`
-- `## Verification` ou `## Verificação`
+- `## Purpose`
+- `## When to Use`
+- `## Procedure`
+- `## Output`
+- `## Verification` (ou `## Done Criteria`)
 
 Esse padrão torna a skill fácil de entender por humanos e por agentes.
 
@@ -124,13 +146,16 @@ Ao criar ou ajustar uma skill, siga estas regras:
 - Evite placeholders vagos ou instruções ambíguas.
 - Documente dependências, saídas esperadas e critérios de validação.
 - Garanta que a skill possa ser reutilizada em contextos diferentes.
+- Escreva skills, templates e documentos gerados em inglês (apenas os arquivos `README.pt.md` ficam em português).
+- Não referencie projetos, repositórios, nomes de skills internas, ambientes, pessoas ou caminhos absolutos/completos de pastas. Use placeholders genéricos (`<módulo>`, `<projeto>`) e caminhos relativos à raiz do repositório.
+- Referencie outras skills apenas quando existirem neste repositório, ou descreva a capacidade de forma genérica (por exemplo, "o gerenciador de tarefas do projeto").
 
 ## Convenções de documentação
 
 - Tome cuidado com nomenclatura consistente.
 - Use exemplos práticos no `argument-hint` e no texto de uso.
 - Quando a skill orquestra outras skills, deixe explícita a ordem de execução.
-- No fluxo spec-kit, execute `spec-kit-architecture` primeiro para criar `docs/architecture.md` quando o projeto ainda não tiver referência arquitetural — depois use `spec-kit` para planejar features.
+- No fluxo spec-kit, execute `spec-kit-0-architecture` primeiro para criar `docs/<módulo>-architecture.md` quando o projeto ainda não tiver referência arquitetural — depois use `spec-kit` para planejar features.
 - Se houver arquivos gerados, diga exatamente qual pasta ou padrão de saída deve ser utilizado.
 - Mantenha a documentação alinhada com o comportamento efetivo da skill.
 

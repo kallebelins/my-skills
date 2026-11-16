@@ -3,23 +3,23 @@ doc: plan
 feature: {{feature name}}
 status: draft
 depends_on: [spec.md]
-generated_by: spec-kit
+generated_by: spec-kit-2-plan
 ---
 
 # Plan — {{Feature Name}}
 
-<!-- Each Phase below MUST map 1:1 to an item in spec.md's "Scope Summary". Do not invent phases outside that list. -->
+<!-- Each Phase below MUST map 1:1 to an item of the "Scope Summary" in spec.md, same order, same name. Never invent phases outside that list. -->
 
 ## Phases
 
-- [ ] Phase 1 — {{name, same as Scope Summary item 1}}
+- [ ] Phase 1 — {{name, identical to item 1 of the Scope Summary}}
   - Depends on: {{none | Phase N}}
-  - Delivers: {{reference to spec.md sections/contracts/models covered}}
+  - Delivers: {{spec.md sections/contracts/models covered}}
 
-- [ ] Phase 2 — {{name, same as Scope Summary item 2}}
+- [ ] Phase 2 — {{name, identical to item 2 of the Scope Summary}}
   - Depends on: {{Phase 1}}
   - Delivers: {{...}}
 
 ## Out of Scope
-<!-- Copied verbatim from spec.md "Out of Scope" -->
+<!-- Copied verbatim from the "Out of Scope" section of spec.md -->
 - {{...}}
